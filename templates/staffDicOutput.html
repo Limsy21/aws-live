@@ -140,8 +140,6 @@
                 
                 <form action ='/staffDicOutput' method = 'POST'>
                     {% for item in data %}
-                    <label>Leave ID: </label>
-                    <input type = "text" name="leaveID"></br></br>
                     <label>Employee ID:</label>
                     <input type="text" name="emp_id" value="{{item[0]}}" readonly>
                     <label>Employee Name: </label>
