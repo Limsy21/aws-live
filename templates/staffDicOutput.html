@@ -146,14 +146,14 @@
                     <input type="text" name="emp_id" value="{{item[0]}}" readonly>
                     <label>Employee Name: </label>
                     <input type = "text" name="emp_name" value="{{item[1]}}" readonly></br></br>
-                    <label>Start Leave Date :</label>
-                    <input type = "date" name="StartDate" id="StartDate" onblur="daysDifference();"></br></br>
-                    <label>End Leave Date :</label>
-                    <input type = "date" name="EndDate" id="EndDate" onblur="daysDifference();"></br></br>
-                    <label>Total Days:</label>
-                    <input type="text" name="totalDays" id="totalDays" readonly></br></br>
-                    <label>Reason :</label>
-                    <textarea rows="4" cols="50" name="reason"></textarea>
+                    <label>DOB:</label>
+                    <input type = "date" name="dob" value="{{item[2]}}" readonly></br></br>
+                    <label>Department</label>
+                    <input type = "text" name="emp_dept" value="{{item[3]}}" readonly></br></br>
+                    <label>Gender</label>
+                    <input type="text" name="Gender" value="{{item[4]}}" readonly></br></br>
+                    <label>Address :</label>
+                    <input type="text" name="address" value="{{item[5]}}" readonly></br></br>
                     <button type ="submit">Submit</button>
                     {% endfor %}
                 </form>
