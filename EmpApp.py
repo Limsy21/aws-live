@@ -96,13 +96,54 @@ def staffDic():
 
 @application.route("/staffDicOutput", methods=['GET','POST'])
 def searchEmp():
-    if request.method =="POST":
-        cursor = db_conn.cursor()
-        cursor.execute("SELECT * from employee where emp_id=%s",request.form['searchData'])
-        data = cursor.fetchall()
-        return render_template('staffDicOutput.html', data =data)
-    else:
-        return render_template('staffDicOutput.html')
+    emp_id = request.form['emp_id']
+
+    # define sql query to be execute
+    read_sql = "SELECT * FROM `employee` WHERE emp_id=%s"
+
+    # define a cursor to fetch
+    cursor = db_conn.cursor()
+
+    try:
+        # execute query
+        cursor.execute(read_sql, (emp_id))
+
+        # fetch one row
+        result = cursor.fetchone()
+
+        # store result
+        emp_id, emp_name, dob, emp_dept, address,gender = result
+
+        # Fetch image file from S3 #
+        emp_image_file_name_in_s3 = "emp-id-" + str(emp_id) + "_image_file"
+        s3 = boto3.resource('s3')
+
+        try:
+            bucket_location = boto3.client(
+                's3').get_bucket_location(Bucket=custombucket)
+            s3_location = (bucket_location['LocationConstraint'])
+
+            if s3_location is None:
+                s3_location = ''
+            else:
+                s3_location = '-' + s3_location
+
+            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+                s3_location,
+                custombucket,
+                emp_image_file_name_in_s3)
+
+        except Exception as e:
+            return str(e)
+
+    finally:
+        cursor.close()
+
+    print("all modification done...")
+    print("all fetching done...")
+    #
+    return render_template('staffDicOutput.html', id=emp_id, name=emp_name, date_of_birth=dob, department=emp_dept, location=address ,emp_gender=gender, image_url=object_url)
+
 
 
 
