@@ -139,7 +139,7 @@
                 <h2>Staff Details</h2>
                 
                 <form action ='/staffDicOutput' method = 'POST'>
-                    {% for item in data %}
+                    
                     <label>Employee ID:</label>
                     <input type="text" name="emp_id" value="{{id}}" readonly>
                     <label>Employee Name: </label>
@@ -155,7 +155,7 @@
                     <img src="{{ image_url }}">
 
                     
-                    {% endfor %}
+                    
                 </form>
             </main>
         </div>
