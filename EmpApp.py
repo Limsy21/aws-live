@@ -7,7 +7,7 @@ import os
 import boto3
 from config import *
 
-app = Flask(__name__, template_folder="templates")
+application = Flask(__name__, template_folder="templates")
 
 bucket = custombucket
 region = customregion
@@ -23,17 +23,17 @@ output = {}
 table = 'employee'
 
 
-@app.route("/")
+@application.route("/")
 def home():
     return render_template('index.html')
 
 
-@app.route("/AddEmpUI")
+@application.route("/AddEmpUI")
 def AddEmpUI():
     return render_template('addEmp.html')
 
 
-@app.route("/addemp", methods=['POST'])
+@application.route("/addemp", methods=['POST'])
 def AddEmp():
     emp_id = request.form['emp_id']
     emp_name = request.form['emp_name']
@@ -83,18 +83,18 @@ def AddEmp():
     print("all modification done...")
     return render_template('addEmp.html')
 
-@app.route("/displayEmp")
+@application.route("/displayEmp")
 def displayEmp():
     cursor = db_conn.cursor()
     cursor.execute("SELECT * from employee")
     data = cursor.fetchall()
     return render_template ('DisEmp.html', data =data)
 
-@app.route("/staffDic")
+@application.route("/staffDic")
 def staffDic():
    return render_template('staffDic.html')
 
-@app.route("/staffDicOutput", methods=['GET','POST'])
+@application.route("/staffDicOutput", methods=['GET','POST'])
 def searchEmp():
     if request.method =="POST":
         cursor = db_conn.cursor()
